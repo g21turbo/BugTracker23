@@ -5,6 +5,7 @@ import com.example.bugtracker23.user.User;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
 
 public class loginController {
 
@@ -47,6 +48,17 @@ public class loginController {
 
     @FXML
     public void initialize() {
+
+        // If Enter or Tab is pressed after entering the username, text cursor goes to password field
+        usernameField.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER || event.getCode() == KeyCode.TAB) {
+                passwordField.requestFocus();
+            }
+        });
+
+        // Pressing the enter key executes the login
+        passwordField.setOnAction(event -> loginButton.fire());
+
 
         // Close the application when the close menu item is clicked
         closeMenuItem.setOnAction(event -> {

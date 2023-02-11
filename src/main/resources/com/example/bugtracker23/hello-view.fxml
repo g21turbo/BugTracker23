@@ -58,5 +58,6 @@
       </Label>
       <Hyperlink layoutX="83.0" layoutY="355.0" text="Forgot Password" />
       <PasswordField fx:id="passwordField" layoutX="27.0" layoutY="276.0" />
+
    </children>
 </AnchorPane>
