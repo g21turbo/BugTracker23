@@ -40,7 +40,7 @@
             <Image url="@../../../images/blueline2.png" />
          </image>
       </ImageView>
-      <Hyperlink layoutX="86.0" layoutY="332.0" text="Create Account" />
+      <Hyperlink fx:id="createAccountLink" layoutX="86.0" layoutY="332.0" onAction="#initialize" text="Create Account" />
       <Label layoutX="35.0" layoutY="40.0" text="Buggy's Bug Tracker">
          <font>
             <Font name="System Bold" size="20.0" />

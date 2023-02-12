@@ -3,12 +3,22 @@ package com.example.bugtracker23;
 import com.example.bugtracker23.database.DatabaseModel;
 import com.example.bugtracker23.user.User;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class loginController {
 
+    @FXML
+    public MenuItem helpMenuItem;
     @FXML
     private Button loginButton;
     @FXML
@@ -19,6 +29,10 @@ public class loginController {
 
     @FXML
     private PasswordField passwordField;
+
+    @FXML
+    private Hyperlink createAccountLink;
+
 
     @FXML
     private void showHelp() {
@@ -47,7 +61,22 @@ public class loginController {
     }
 
     @FXML
-    public void initialize() {
+    private void initialize() {
+
+        createAccountLink.setOnMouseClicked(event -> {
+            try {
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource("/com/example/bugtracker23/reg-view.fxml"));
+                Parent root = loader.load();
+                Scene scene = new Scene(root, 445, 225);
+                Stage stage = new Stage();
+                stage.setTitle("New Account Creation");
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
 
         // If Enter or Tab is pressed after entering the username, text cursor goes to password field
         usernameField.setOnKeyPressed(event -> {
@@ -95,6 +124,5 @@ public class loginController {
                 e.printStackTrace();
             }
         });
-
     }
 }
