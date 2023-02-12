@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -34,6 +35,9 @@ public class RegistrationController {
                 alert.setHeaderText(null);
                 alert.setContentText("Account created successfully!");
                 alert.showAndWait();
+
+                Stage stage = (Stage) usernameField.getScene().getWindow();
+                stage.close();
             }
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
