@@ -111,7 +111,18 @@ public class loginController {
                     successAlert.setContentText("Welcome, " + username);
                     successAlert.showAndWait();
 
-                    // TODO: Redirect to the next scene
+                    try {
+                        FXMLLoader loader = new FXMLLoader();
+                        loader.setLocation(getClass().getResource("/com/example/bugtracker23/bug-view.fxml"));
+                        Parent root = loader.load();
+                        Scene scene = new Scene(root, 600, 400);
+                        Stage stage = new Stage();
+                        stage.setTitle("Track Your Bugs");
+                        stage.setScene(scene);
+                        stage.show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 } else {
                     // Login was unsuccessful, show an error message
                     Alert errorAlert = new Alert(Alert.AlertType.ERROR);
@@ -124,5 +135,6 @@ public class loginController {
                 e.printStackTrace();
             }
         });
+
     }
 }

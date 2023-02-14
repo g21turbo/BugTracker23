@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="363.0" prefWidth="533.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bugtracker23.bugs.SubmitBugController">
+   <children>
+      <Label layoutX="33.0" layoutY="21.0" text="Submit A New Bug">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font></Label>
+      <DatePicker layoutX="26.0" layoutY="85.0" />
+      <Label layoutX="26.0" layoutY="68.0" text="Submission Date:" />
+      <Label layoutX="26.0" layoutY="110.0" text="Title:" />
+      <TextField layoutX="26.0" layoutY="127.0" />
+      <TextArea layoutX="28.0" layoutY="180.0" prefHeight="171.0" prefWidth="477.0" />
+      <Label layoutX="28.0" layoutY="163.0" prefHeight="17.0" prefWidth="92.0" text="Description:" />
+      <Button layoutX="405.0" layoutY="73.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0" text="Cancel" />
+      <Button layoutX="329.0" layoutY="73.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0" text="Submit" />
+   </children>
+</AnchorPane>
