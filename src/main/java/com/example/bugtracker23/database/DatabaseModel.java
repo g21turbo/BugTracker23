@@ -1,7 +1,6 @@
 package com.example.bugtracker23.database;
 
 import com.example.bugtracker23.user.User;
-
 import java.sql.*;
 
 public class DatabaseModel {

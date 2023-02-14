@@ -1,6 +1,5 @@
 package com.example.bugtracker23.bugs;
 
-import com.example.bugtracker23.database.DatabaseModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

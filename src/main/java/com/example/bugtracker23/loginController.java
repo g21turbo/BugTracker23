@@ -4,8 +4,6 @@ import com.example.bugtracker23.bugs.BugController;
 import com.example.bugtracker23.database.DatabaseModel;
 import com.example.bugtracker23.user.User;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,7 +11,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
 public class loginController {
@@ -116,7 +113,7 @@ public class loginController {
                         FXMLLoader loader = new FXMLLoader();
                         loader.setLocation(getClass().getResource("/com/example/bugtracker23/bug-view.fxml"));
                         Parent root = loader.load();
-                        Scene scene = new Scene(root, 700, 450);
+                        Scene scene = new Scene(root, 745, 551);
                         Stage stage = new Stage();
                         stage.setTitle("Track Your Bugs");
                         stage.setScene(scene);
@@ -126,6 +123,11 @@ public class loginController {
                         bugController.loadBugData();
 
                         stage.show();
+
+                        // get the stage of the login button
+                        Stage loginStage = (Stage) loginButton.getScene().getWindow();
+                        // close the login stage
+                        loginStage.close();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
