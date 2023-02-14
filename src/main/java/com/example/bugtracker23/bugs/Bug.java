@@ -1,26 +1,28 @@
 package com.example.bugtracker23.bugs;
 
-import java.time.LocalDate;
+import java.sql.Timestamp;
 
 public class Bug {
 
-    private int bugNumber;
+    private int number;
     private String title;
     private String description;
 
-    private LocalDate created;
+    private Timestamp created;
 
-    private LocalDate updated;
+    private Timestamp updated;
 
     private String status;
+
+
 
     public Bug(){
 
     }
 
-    public Bug(int bugNumber, String title, String description,
-               LocalDate created, LocalDate updated, String status) {
-        this.bugNumber = bugNumber;
+    public Bug(int number, String title, String description,
+               Timestamp created, Timestamp updated, String status) {
+        this.number = number;
         this.title = title;
         this.description = description;
         this.created = created;
@@ -28,12 +30,12 @@ public class Bug {
         this.status = status;
     }
 
-    public int getBugNumber() {
-        return bugNumber;
+    public int getNumber() {
+        return number;
     }
 
-    public void setBugNumber(int bugNumber) {
-        this.bugNumber = bugNumber;
+    public void setNumber(int number) {
+        this.number = number;
     }
 
     public String getTitle() {
@@ -52,19 +54,19 @@ public class Bug {
         this.description = description;
     }
 
-    public LocalDate getCreated() {
+    public Timestamp getCreated() {
         return created;
     }
 
-    public void setCreated(LocalDate created) {
+    public void setCreated(Timestamp created) {
         this.created = created;
     }
 
-    public LocalDate getUpdated() {
+    public Timestamp getUpdated() {
         return updated;
     }
 
-    public void setUpdated(LocalDate updated) {
+    public void setUpdated(Timestamp updated) {
         this.updated = updated;
     }
 
@@ -79,7 +81,7 @@ public class Bug {
     @Override
     public String toString() {
         return "Bug{" +
-                "bugNumber=" + bugNumber +
+                "number=" + number +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", created=" + created +

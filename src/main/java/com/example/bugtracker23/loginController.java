@@ -1,5 +1,6 @@
 package com.example.bugtracker23;
 
+import com.example.bugtracker23.bugs.BugController;
 import com.example.bugtracker23.database.DatabaseModel;
 import com.example.bugtracker23.user.User;
 import javafx.application.Platform;
@@ -115,10 +116,15 @@ public class loginController {
                         FXMLLoader loader = new FXMLLoader();
                         loader.setLocation(getClass().getResource("/com/example/bugtracker23/bug-view.fxml"));
                         Parent root = loader.load();
-                        Scene scene = new Scene(root, 600, 400);
+                        Scene scene = new Scene(root, 700, 450);
                         Stage stage = new Stage();
                         stage.setTitle("Track Your Bugs");
                         stage.setScene(scene);
+
+                        // Call the loadBugData method
+                        BugController bugController = loader.getController();
+                        bugController.loadBugData();
+
                         stage.show();
                     } catch (IOException e) {
                         e.printStackTrace();
