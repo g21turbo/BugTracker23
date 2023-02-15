@@ -1,5 +1,6 @@
 package com.example.bugtracker23.bugs;
 
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,7 +12,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+
 import java.io.IOException;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -43,6 +46,8 @@ public class BugController {
     @FXML
     private Button submitBug;
 
+    @FXML
+    private Button refreshButton;
 
 
     public void loadBugData() {
@@ -75,5 +80,69 @@ public class BugController {
                 e.printStackTrace();
             }
         });
+
+
+        refreshButton.setOnAction(event -> {
+            try {
+                // Connect to the database
+                try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/userlogin", "root", "root")) {
+                    // Retrieve the information from the database
+                    String sql = "SELECT * FROM userlogin.buginfo";
+                    try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                        try (ResultSet resultSet = statement.executeQuery()) {
+                            ObservableList<Bug> refreshedData = FXCollections.observableArrayList();
+                            while (resultSet.next()) {
+                                int number = resultSet.getInt("number");
+                                String title = resultSet.getString("title");
+                                String description = resultSet.getString("description");
+                                Timestamp created = resultSet.getTimestamp("created");
+                                Timestamp updated = resultSet.getTimestamp("updated");
+                                String status = resultSet.getString("status");
+                                refreshedData.add(new Bug(number, title, description, created, updated, status));
+                            }
+                            // Update the items for the bug TableView
+                            bugTable.setItems(refreshedData);
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+    }
+
+
+    @FXML
+    public void refreshBugData() {
+
+        bugData = FXCollections.observableArrayList();
+
+        // Connect to the database
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/userlogin", "root", "root")) {
+            // Retrieve the information from the database
+            String sql = "SELECT * FROM userlogin.buginfo";
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    ObservableList<Bug> bugData = FXCollections.observableArrayList();
+                    while (resultSet.next()) {
+                        int number = resultSet.getInt("number");
+                        String title = resultSet.getString("title");
+                        String description = resultSet.getString("description");
+                        Timestamp created = resultSet.getTimestamp("created");
+                        Timestamp updated = resultSet.getTimestamp("updated");
+                        String status = resultSet.getString("status");
+                        bugData.add(new Bug(number, title, description, created, updated, status));
+                    }
+                    // Set the items for the bug TableView
+                    TableView<Bug> bugTableView = new TableView<>();
+                    bugTableView.setItems(bugData);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
+
+
