@@ -50,6 +50,7 @@ public class BugController {
     private Button refreshButton;
 
 
+    // Loads data of bugs from the database using the DatabaseHelper
     public void loadBugData() {
         DatabaseHelper database = new DatabaseHelper();
         List<Bug> bugs = database.getBugs();
@@ -59,6 +60,7 @@ public class BugController {
     @FXML
     private void initialize() {
 
+        // Set the column values for the TableView
         bugNumberColumn.setCellValueFactory(new PropertyValueFactory<>("number"));
         titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
         descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
@@ -66,11 +68,16 @@ public class BugController {
         updatedColumn.setCellValueFactory(new PropertyValueFactory<>("updated"));
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
 
+        // Handle the submit button action
         submitBug.setOnAction(event -> {
             try {
+
+                // Load the Submit Bug view from the FXML file
                 FXMLLoader loader = new FXMLLoader();
                 loader.setLocation(getClass().getResource("/com/example/bugtracker23/submit-view.fxml"));
                 Parent root = loader.load();
+
+                // Create a new scene with the Submit Bug view and display it in a new stage
                 Scene scene = new Scene(root, 600, 400);
                 Stage stage = new Stage();
                 stage.setTitle("Submit A New Bug");
@@ -82,15 +89,22 @@ public class BugController {
         });
 
 
+        // Set an event handler for the refresh button to retrieve updated data from the database
         refreshButton.setOnAction(event -> {
             try {
+
                 // Connect to the database
                 try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/userlogin", "root", "root")) {
-                    // Retrieve the information from the database
+
+                    // Retrieve the updated data from the database
                     String sql = "SELECT * FROM userlogin.buginfo";
                     try (PreparedStatement statement = connection.prepareStatement(sql)) {
                         try (ResultSet resultSet = statement.executeQuery()) {
+
+                            // Create a new observable list to store the updated data
                             ObservableList<Bug> refreshedData = FXCollections.observableArrayList();
+
+                            // Iterate over the result set and add each row to the refreshed data list
                             while (resultSet.next()) {
                                 int number = resultSet.getInt("number");
                                 String title = resultSet.getString("title");
@@ -100,7 +114,7 @@ public class BugController {
                                 String status = resultSet.getString("status");
                                 refreshedData.add(new Bug(number, title, description, created, updated, status));
                             }
-                            // Update the items for the bug TableView
+                            // Set the refreshed data as the items for the bug TableView
                             bugTable.setItems(refreshedData);
                         }
                     }
@@ -116,15 +130,21 @@ public class BugController {
     @FXML
     public void refreshBugData() {
 
+        // Clear any existing bug data
         bugData = FXCollections.observableArrayList();
 
         // Connect to the database
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/userlogin", "root", "root")) {
+
             // Retrieve the information from the database
             String sql = "SELECT * FROM userlogin.buginfo";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 try (ResultSet resultSet = statement.executeQuery()) {
+
+                    // Create a new observable list to hold the bug data
                     ObservableList<Bug> bugData = FXCollections.observableArrayList();
+
+                    // Loop through the result set and add each bug to the list
                     while (resultSet.next()) {
                         int number = resultSet.getInt("number");
                         String title = resultSet.getString("title");
@@ -140,6 +160,7 @@ public class BugController {
                 }
             }
         } catch (SQLException e) {
+            // Print any SQL exceptions that occur
             e.printStackTrace();
         }
     }
