@@ -12,11 +12,14 @@ To build the application, open the project in IntelliJ IDEA and run the Main cla
 
 ## Usage
 
-
 The Java Bug Tracker application provides a simple interface for creating and tracking bugs.
-Upon launching the application, you will be presented with a main screen that displays a list of all bugs. From here, you can:
+Must be connected to a MYSQL database("jdbc:mysql://localhost:3306/userlogin", "root", "root").
+Upon launching the application, you will be presented with a main screen where you can log in or create an account.
+After a successful login, the bug stage will appear
+From here, you can:
 
-    Create a new bug by clicking the "Submit A Bug" button in top left of the stage
+    View submitted bugs in the table
+    Submit a new bug by clicking the "Submit A Bug" button in top left corner of the stage
     Refresh the submitted bug table with the "Refresh" button below the "Submit A Bug" button
     Edit an existing bug by double-clicking on a bug in the table - Not yet implemented
     Update the status of a bug by selecting it in the table and selecting the status from to combobox - Not yet implemented
