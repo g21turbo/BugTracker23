@@ -18,7 +18,7 @@
             <Font name="System Italic" size="12.0" />
          </font>
       </TextField>
-      <ComboBox layoutX="607.0" layoutY="48.0" prefHeight="25.0" prefWidth="105.0" promptText="Filter Bugs" />
+      <ComboBox fx:id="comboBox1" layoutX="607.0" layoutY="48.0" prefHeight="25.0" prefWidth="105.0" promptText="Filter Bugs" />
       <TableView fx:id="bugTable" layoutX="33.0" layoutY="132.0" prefHeight="377.0" prefWidth="679.0">
         <columns>
           <TableColumn fx:id="bugNumberColumn" prefWidth="66.0" text="Number" />

@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -48,6 +49,10 @@ public class BugController {
 
     @FXML
     private Button refreshButton;
+    @FXML
+    private ComboBox<String> comboBox1;
+
+    private ObservableList<String> statusUnits;
 
 
     // Loads data of bugs from the database using the DatabaseHelper
@@ -67,6 +72,10 @@ public class BugController {
         createdColumn.setCellValueFactory(new PropertyValueFactory<>("created"));
         updatedColumn.setCellValueFactory(new PropertyValueFactory<>("updated"));
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
+
+        statusUnits = FXCollections.observableArrayList("Date", "Open", "Closed");
+        comboBox1.setItems(statusUnits);
+        comboBox1.setPromptText("Filter");
 
         // Handle the submit button action
         submitBug.setOnAction(event -> {
