@@ -13,5 +13,7 @@ module com.example.bugtracker23 {
     exports com.example.bugtracker23;
     exports com.example.bugtracker23.register;
     exports com.example.bugtracker23.bugs;
+    exports com.example.bugtracker23.database;
+    opens com.example.bugtracker23.database;
 
 }

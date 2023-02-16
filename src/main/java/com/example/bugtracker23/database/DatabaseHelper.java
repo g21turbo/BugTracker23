@@ -1,4 +1,6 @@
-package com.example.bugtracker23.bugs;
+package com.example.bugtracker23.database;
+
+import com.example.bugtracker23.bugs.Bug;
 
 import java.sql.*;
 import java.util.ArrayList;
