@@ -4,17 +4,17 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="363.0" prefWidth="533.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bugtracker23.bugs.SubmitBugController">
+<AnchorPane prefHeight="279.0" prefWidth="432.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bugtracker23.bugs.SubmitBugController">
    <children>
       <Label layoutX="33.0" layoutY="21.0" text="Submit A New Bug">
          <font>
             <Font name="System Bold" size="20.0" />
          </font></Label>
-      <Label layoutX="26.0" layoutY="110.0" text="Title:" />
-      <TextField fx:id="titleField" layoutX="26.0" layoutY="127.0" />
-      <TextArea fx:id="descriptionArea" layoutX="28.0" layoutY="180.0" prefHeight="171.0" prefWidth="477.0" />
-      <Label layoutX="28.0" layoutY="163.0" prefHeight="17.0" prefWidth="92.0" text="Description:" />
-      <Button layoutX="405.0" layoutY="73.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0" text="Cancel" />
-      <Button fx:id="submit" layoutX="329.0" layoutY="73.0" mnemonicParsing="false" onAction="#saveBug" prefHeight="25.0" prefWidth="70.0" text="Submit" />
+      <Label layoutX="28.0" layoutY="70.0" text="Title:" />
+      <TextField fx:id="titleField" layoutX="28.0" layoutY="86.0" />
+      <TextArea fx:id="descriptionArea" layoutX="28.0" layoutY="132.0" prefHeight="122.0" prefWidth="378.0" />
+      <Label layoutX="28.0" layoutY="115.0" prefHeight="17.0" prefWidth="92.0" text="Description:" />
+      <Button layoutX="326.0" layoutY="98.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0" text="Cancel" />
+      <Button fx:id="submit" layoutX="248.0" layoutY="98.0" mnemonicParsing="false" onAction="#saveBug" prefHeight="25.0" prefWidth="70.0" text="Submit" />
    </children>
 </AnchorPane>

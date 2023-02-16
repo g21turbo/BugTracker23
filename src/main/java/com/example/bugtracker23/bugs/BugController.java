@@ -73,7 +73,7 @@ public class BugController {
         updatedColumn.setCellValueFactory(new PropertyValueFactory<>("updated"));
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
 
-        statusUnits = FXCollections.observableArrayList("Date", "Open", "Closed");
+        statusUnits = FXCollections.observableArrayList("Most Recent", "Open", "Closed");
         comboBox1.setItems(statusUnits);
         comboBox1.setPromptText("Filter");
 
@@ -87,7 +87,7 @@ public class BugController {
                 Parent root = loader.load();
 
                 // Create a new scene with the Submit Bug view and display it in a new stage
-                Scene scene = new Scene(root, 600, 400);
+                Scene scene = new Scene(root, 432, 280);
                 Stage stage = new Stage();
                 stage.setTitle("Submit A New Bug");
                 stage.setScene(scene);
