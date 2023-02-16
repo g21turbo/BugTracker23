@@ -2,6 +2,7 @@
 
 Java Bug Tracker is a simple bug tracking application built in JavaFX. 
 The application allows users to create and track bugs, with features including bug creation, updating, and status tracking.
+See 'Demo Photos' above the 'src' folder for a preview
 
 ## Installation
 
