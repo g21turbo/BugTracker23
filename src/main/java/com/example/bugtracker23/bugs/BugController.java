@@ -8,11 +8,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -134,8 +132,27 @@ public class BugController {
             }
         });
 
-    }
+        bugTable.setOnMouseClicked(event -> {
+            try {
+                if (event.getClickCount() == 2 && !bugTable.getSelectionModel().isEmpty()) {
+                    Bug selectedBug = bugTable.getSelectionModel().getSelectedItem();
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/bugtracker23/details-view.fxml"));
+                    Parent root = loader.load();
+                    BugDetailsController controller = loader.getController();
+                    controller.setBug(selectedBug);
+                    controller.initialize();
+                    Stage stage = new Stage();
+                    stage.setScene(new Scene(root));
+                    stage.setTitle("Bug Details");
+                    stage.initModality(Modality.APPLICATION_MODAL);
+                    stage.showAndWait();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
 
+    }
 
     @FXML
     public void refreshBugData() {
@@ -175,5 +192,3 @@ public class BugController {
         }
     }
 }
-
-
