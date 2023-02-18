@@ -156,6 +156,8 @@ public class BugController {
                     Stage stage = new Stage();
                     stage.setScene(new Scene(root));
                     stage.setTitle("Bug Details");
+
+                    // Interact with current window only
                     stage.initModality(Modality.APPLICATION_MODAL);
 
                     // Show the bug details view and wait for it to close
