@@ -80,7 +80,7 @@ public class BugController {
         submitBug.setOnAction(event -> {
             try {
 
-                // Load the Submit Bug view from the FXML file
+                // Load the Submit Bug view FXML file
                 FXMLLoader loader = new FXMLLoader();
                 loader.setLocation(getClass().getResource("/com/example/bugtracker23/submit-view.fxml"));
                 Parent root = loader.load();
@@ -134,17 +134,31 @@ public class BugController {
 
         bugTable.setOnMouseClicked(event -> {
             try {
+
+                // Only proceed if user double clicks and selected bug is not null
                 if (event.getClickCount() == 2 && !bugTable.getSelectionModel().isEmpty()) {
+
+                    // Get the selected bug from the table
                     Bug selectedBug = bugTable.getSelectionModel().getSelectedItem();
+
+                    // Load the bug details view FXML file
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/bugtracker23/details-view.fxml"));
                     Parent root = loader.load();
+
+                    // Get the controller for the bug details view
                     BugDetailsController controller = loader.getController();
+
+                    // Set the selected bug on the controller
                     controller.setBug(selectedBug);
+
+                    // Initialize the bug details view with the selected bug data
                     controller.initialize();
                     Stage stage = new Stage();
                     stage.setScene(new Scene(root));
                     stage.setTitle("Bug Details");
                     stage.initModality(Modality.APPLICATION_MODAL);
+
+                    // Show the bug details view and wait for it to close
                     stage.showAndWait();
                 }
             } catch (IOException e) {
