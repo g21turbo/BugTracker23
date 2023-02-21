@@ -1,10 +1,10 @@
-package com.example.bugtracker23.bugs;
+package com.example.bugtracker23.comments;
 
 import javafx.fxml.FXML;
 
 import java.sql.*;
 
-public class Comments {
+public class CommentForBugs {
 
     @FXML
     private int id;
@@ -21,7 +21,7 @@ public class Comments {
     @FXML
     private Timestamp created;
 
-    public Comments(int id, int bug_Number, String author, String content, Timestamp created) {
+    public CommentForBugs(int id, int bug_Number, String author, String content, Timestamp created) {
         this.id = id;
         this.bugNumber = bug_Number;
         this.author = author;
@@ -29,10 +29,10 @@ public class Comments {
         this.created = created;
     }
 
-    public Comments() {
+    public CommentForBugs() {
     }
 
-    public Comments(Timestamp created, String author, String content) {
+    public CommentForBugs(Timestamp created, String author, String content) {
         this.created = created;
         this.author = author;
         this.content = content;

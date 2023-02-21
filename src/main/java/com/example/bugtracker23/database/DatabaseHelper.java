@@ -1,7 +1,7 @@
 package com.example.bugtracker23.database;
 
 import com.example.bugtracker23.bugs.Bug;
-import com.example.bugtracker23.bugs.Comments;
+import com.example.bugtracker23.comments.CommentForBugs;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -67,8 +67,8 @@ public class DatabaseHelper {
         return bugs;
     }
 
-    public List<Comments> getComments() {
-        List<Comments> comments = new ArrayList<>();
+    public List<CommentForBugs> getComments() {
+        List<CommentForBugs> comments = new ArrayList<>();
         try {
             // Create a new Statement object to execute the SQL query
             Statement statement = connection.createStatement();
@@ -82,7 +82,7 @@ public class DatabaseHelper {
                 Timestamp created = resultSet.getTimestamp("created");
                 String author = resultSet.getString("author");
                 String content = resultSet.getString("content");
-                Comments comment = new Comments(created, author, content);
+                CommentForBugs comment = new CommentForBugs(created, author, content);
                 comments.add(comment);
             }
         } catch (SQLException e) {

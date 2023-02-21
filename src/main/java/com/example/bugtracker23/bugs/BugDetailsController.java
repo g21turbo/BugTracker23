@@ -1,5 +1,6 @@
 package com.example.bugtracker23.bugs;
 
+import com.example.bugtracker23.comments.CommentForBugs;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -17,16 +18,16 @@ import java.sql.*;
 public class BugDetailsController {
 
     @FXML
-    private TableView<Comments> commentsTable;
+    private TableView<CommentForBugs> commentsTable;
 
     @FXML
-    private TableColumn<Comments, Timestamp> createdColumn;
+    private TableColumn<CommentForBugs, Timestamp> createdColumn;
 
     @FXML
-    private TableColumn<Comments, String> authorColumn;
+    private TableColumn<CommentForBugs, String> authorColumn;
 
     @FXML
-    private TableColumn<Comments, String> contentColumn;
+    private TableColumn<CommentForBugs, String> contentColumn;
 
     @FXML
     private ChoiceBox<String> statusChoiceBox;
@@ -111,7 +112,7 @@ public class BugDetailsController {
             statusChoiceBox.setValue(bug.getStatus());
 
             // Retrieve comments for the current bug from the database and add them to the comments list
-            ObservableList<Comments> comments = FXCollections.observableArrayList();
+            ObservableList<CommentForBugs> comments = FXCollections.observableArrayList();
             String selectCommentsSql = "SELECT c.created, c.author, c.content FROM userlogin.comments c WHERE c.bugNumber = ?";
             try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/userlogin", "root", "root");
                  PreparedStatement pstmt = conn.prepareStatement(selectCommentsSql)) {
@@ -121,7 +122,7 @@ public class BugDetailsController {
                     Timestamp created = Timestamp.valueOf(rs.getTimestamp("created").toLocalDateTime());
                     String author = rs.getString("author");
                     String content = rs.getString("content");
-                    comments.add(new Comments(created, author, content));
+                    comments.add(new CommentForBugs(created, author, content));
                 }
             } catch (SQLException e) {
                 e.printStackTrace();

@@ -1,4 +1,4 @@
-package com.example.bugtracker23;
+package com.example.bugtracker23.login;
 
 import com.example.bugtracker23.bugs.BugController;
 import com.example.bugtracker23.database.DatabaseModel;
@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class loginController {
+public class LoginController {
 
     @FXML
     public MenuItem helpMenuItem;

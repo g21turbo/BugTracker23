@@ -1,4 +1,4 @@
-package com.example.bugtracker23.bugs;
+package com.example.bugtracker23.comments;
 
 
 import javafx.fxml.FXML;
