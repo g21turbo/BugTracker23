@@ -1,27 +1,44 @@
 package com.example.bugtracker23.bugs;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.*;
+import java.time.LocalDateTime;
 
 public class BugDetailsController {
 
     @FXML
-    public TableColumn contentColumn;
+    private TableView<Comments> commentsTable;
 
     @FXML
-    public TableColumn authorColumn;
+    private TableColumn<Comments, Timestamp> createdColumn;
 
     @FXML
-    public TableColumn createdColumn;
+    private TableColumn<Comments, String> authorColumn;
 
-    public TableView commentsTable;
+    @FXML
+    private TableColumn<Comments, String> contentColumn;
+
+//    @FXML
+//    public TableColumn contentColumn;
+//
+//    @FXML
+//    public TableColumn authorColumn;
+//
+//    @FXML
+//    public TableColumn createdColumn;
+//
+//    public TableView commentsTable;
 
     @FXML
     public Button createNewCommentButton;
@@ -76,6 +93,29 @@ public class BugDetailsController {
                 e.printStackTrace();
             }
         });
+
+        // Set up table columns
+        createdColumn.setCellValueFactory(new PropertyValueFactory<>("created"));
+        authorColumn.setCellValueFactory(new PropertyValueFactory<>("author"));
+        contentColumn.setCellValueFactory(new PropertyValueFactory<>("content"));
+
+        // Retrieve data from database and add it to the comments list
+        ObservableList<Comments> comments = FXCollections.observableArrayList();
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/userlogin", "root", "root");
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT created, author, content FROM userlogin.comments")) {
+            while (rs.next()) {
+                Timestamp created = rs.getTimestamp("created");
+                String author = rs.getString("author");
+                String content = rs.getString("content");
+                comments.add(new Comments(created, author, content));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        // Set the comments list as the data source for the table view
+        commentsTable.setItems(comments);
 
     }
 }
