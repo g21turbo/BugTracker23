@@ -5,6 +5,7 @@ module com.example.bugtracker {
     requires java.sql;
     requires spring.beans;
     requires spring.context;
+    requires java.desktop;
 
 
     opens com.example.bugtracker23 to javafx.fxml;

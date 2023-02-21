@@ -1,6 +1,7 @@
 package com.example.bugtracker23.database;
 
 import com.example.bugtracker23.bugs.Bug;
+import com.example.bugtracker23.bugs.Comments;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -64,5 +65,29 @@ public class DatabaseHelper {
             e.printStackTrace();
         }
         return bugs;
+    }
+
+    public List<Comments> getComments() {
+        List<Comments> comments = new ArrayList<>();
+        try {
+            // Create a new Statement object to execute the SQL query
+            Statement statement = connection.createStatement();
+
+            // Execute the SQL query and get the results as a ResultSet object
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM comments");
+
+            // Iterate over each row in the ResultSet and create a new Comments object for each row
+            while (resultSet.next()) {
+
+                Timestamp created = resultSet.getTimestamp("created");
+                String author = resultSet.getString("author");
+                String content = resultSet.getString("content");
+                Comments comment = new Comments(created, author, content);
+                comments.add(comment);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return comments;
     }
 }

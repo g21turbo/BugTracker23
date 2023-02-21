@@ -1,9 +1,11 @@
 package com.example.bugtracker23.bugs;
 
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+
 import java.sql.*;
 
 public class SubmitBugController {
@@ -13,11 +15,6 @@ public class SubmitBugController {
 
     @FXML
     private TextArea descriptionArea;
-
-    @FXML
-    private TableView<Bug> bugTable;
-
-    private ObservableList<Bug> bugData;
 
     public void saveBug() {
 
@@ -69,7 +66,7 @@ public class SubmitBugController {
                 }
             }
         } catch (SQLException e) {
-
+            e.printStackTrace();
             // If an error occurred while inserting the bug, show an error dialog
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error Dialog");

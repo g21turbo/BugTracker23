@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 
 public class loginController {
@@ -121,6 +122,7 @@ public class loginController {
                         // Call the loadBugData method
                         BugController bugController = loader.getController();
                         bugController.loadBugData();
+
 
                         stage.show();
 

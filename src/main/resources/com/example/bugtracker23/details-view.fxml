@@ -17,23 +17,24 @@
       <TextField fx:id="titleField" layoutX="14.0" layoutY="137.0" prefHeight="25.0" prefWidth="269.0" />
       <Label layoutX="15.0" layoutY="162.0" text="Description: " />
       <TextArea fx:id="descriptionArea" layoutX="16.0" layoutY="179.0" prefHeight="102.0" prefWidth="269.0" />
-      <TableView layoutX="16.0" layoutY="329.0" prefHeight="238.0" prefWidth="558.0">
+      <TableView fx:id="commentsTable" layoutX="16.0" layoutY="329.0" prefHeight="238.0" prefWidth="558.0">
         <columns>
-          <TableColumn prefWidth="112.0" text="Date/Time" />
-          <TableColumn prefWidth="104.0" text="User" />
-            <TableColumn prefWidth="341.0" text="Comment" />
+          <TableColumn fx:id="createdColumn" prefWidth="112.0" text="Date/Time" />
+          <TableColumn fx:id="authorColumn" prefWidth="104.0" text="Author" />
+            <TableColumn fx:id="contentColumn" prefWidth="341.0" text="Comment" />
         </columns>
       </TableView>
       <Label layoutX="262.0" layoutY="304.0" prefHeight="21.0" prefWidth="88.0" text="Comments:">
          <font>
             <Font name="System Bold" size="15.0" />
          </font></Label>
-      <Button layoutX="478.0" layoutY="292.0" mnemonicParsing="false" text="New Comment" />
+      <Button fx:id="createNewCommentButton" layoutX="478.0" layoutY="292.0" mnemonicParsing="false" onAction="#initialize" text="New Comment" />
       <Label layoutX="336.0" layoutY="78.0" text="Date Created:" />
       <TextField fx:id="createdField" layoutX="335.0" layoutY="95.0" prefHeight="25.0" prefWidth="149.0" />
       <Label layoutX="336.0" layoutY="120.0" text="Last Updated:" />
       <TextField fx:id="updatedField" layoutX="335.0" layoutY="137.0" />
       <Label layoutX="336.0" layoutY="162.0" text="Status:" />
       <ChoiceBox fx:id="statusBox" layoutX="334.0" layoutY="179.0" prefWidth="150.0" />
+      <Button layoutX="376.0" layoutY="292.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="96.0" text="Refresh" />
    </children>
 </AnchorPane>
