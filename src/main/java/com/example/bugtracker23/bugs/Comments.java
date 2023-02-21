@@ -3,7 +3,6 @@ package com.example.bugtracker23.bugs;
 import javafx.fxml.FXML;
 
 import java.sql.*;
-import java.time.LocalDateTime;
 
 public class Comments {
 

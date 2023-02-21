@@ -169,42 +169,4 @@ public class BugController {
         });
 
     }
-
-    @FXML
-    public void refreshBugData() {
-
-        // Clear any existing bug data
-        bugData = FXCollections.observableArrayList();
-
-        // Connect to the database
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/userlogin", "root", "root")) {
-
-            // Retrieve the information from the database
-            String sql = "SELECT * FROM userlogin.buginfo";
-            try (PreparedStatement statement = connection.prepareStatement(sql)) {
-                try (ResultSet resultSet = statement.executeQuery()) {
-
-                    // Create a new observable list to hold the bug data
-                    ObservableList<Bug> bugData = FXCollections.observableArrayList();
-
-                    // Loop through the result set and add each bug to the list
-                    while (resultSet.next()) {
-                        int number = resultSet.getInt("number");
-                        String title = resultSet.getString("title");
-                        String description = resultSet.getString("description");
-                        Timestamp created = resultSet.getTimestamp("created");
-                        Timestamp updated = resultSet.getTimestamp("updated");
-                        String status = resultSet.getString("status");
-                        bugData.add(new Bug(number, title, description, created, updated, status));
-                    }
-                    // Set the items for the bug TableView
-                    TableView<Bug> bugTableView = new TableView<>();
-                    bugTableView.setItems(bugData);
-                }
-            }
-        } catch (SQLException e) {
-            // Print any SQL exceptions that occur
-            e.printStackTrace();
-        }
-    }
 }

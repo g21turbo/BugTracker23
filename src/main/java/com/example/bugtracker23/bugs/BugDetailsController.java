@@ -29,17 +29,6 @@ public class BugDetailsController {
     @FXML
     private TableColumn<Comments, String> contentColumn;
 
-//    @FXML
-//    public TableColumn contentColumn;
-//
-//    @FXML
-//    public TableColumn authorColumn;
-//
-//    @FXML
-//    public TableColumn createdColumn;
-//
-//    public TableView commentsTable;
-
     @FXML
     public Button createNewCommentButton;
 
@@ -76,6 +65,29 @@ public class BugDetailsController {
             createdField.setText(bug.getCreated().toString());
             updatedField.setText(bug.getUpdated().toString());
             statusBox.setValue(bug.getStatus());
+
+            // Retrieve comments for the current bug from the database and add them to the comments list
+            ObservableList<Comments> comments = FXCollections.observableArrayList();
+            String selectCommentsSql = "SELECT c.created, c.author, c.content FROM userlogin.comments c WHERE c.bugNumber = ?";
+            try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/userlogin", "root", "root");
+                 PreparedStatement pstmt = conn.prepareStatement(selectCommentsSql)) {
+                pstmt.setInt(1, bug.getNumber());
+                ResultSet rs = pstmt.executeQuery();
+                while (rs.next()) {
+                    Timestamp created = Timestamp.valueOf(rs.getTimestamp("created").toLocalDateTime());
+                    String author = rs.getString("author");
+                    String content = rs.getString("content");
+                    comments.add(new Comments(created, author, content));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            // Set the comments list as the data source for the table view
+            commentsTable.setItems(comments);
+            createdColumn.setCellValueFactory(new PropertyValueFactory<>("created"));
+            authorColumn.setCellValueFactory(new PropertyValueFactory<>("author"));
+            contentColumn.setCellValueFactory(new PropertyValueFactory<>("content"));
         }
 
         createNewCommentButton.setOnAction(event -> {
@@ -93,29 +105,6 @@ public class BugDetailsController {
                 e.printStackTrace();
             }
         });
-
-        // Set up table columns
-        createdColumn.setCellValueFactory(new PropertyValueFactory<>("created"));
-        authorColumn.setCellValueFactory(new PropertyValueFactory<>("author"));
-        contentColumn.setCellValueFactory(new PropertyValueFactory<>("content"));
-
-        // Retrieve data from database and add it to the comments list
-        ObservableList<Comments> comments = FXCollections.observableArrayList();
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/userlogin", "root", "root");
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT created, author, content FROM userlogin.comments")) {
-            while (rs.next()) {
-                Timestamp created = rs.getTimestamp("created");
-                String author = rs.getString("author");
-                String content = rs.getString("content");
-                comments.add(new Comments(created, author, content));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        // Set the comments list as the data source for the table view
-        commentsTable.setItems(comments);
-
     }
+
 }
