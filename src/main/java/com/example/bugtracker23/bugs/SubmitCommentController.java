@@ -55,7 +55,6 @@ public class SubmitCommentController {
             alert.setTitle("Error");
             alert.setHeaderText(null);
             alert.setContentText("Failed to submit comment.");
-
             alert.showAndWait();
         }
     }

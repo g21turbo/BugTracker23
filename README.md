@@ -22,8 +22,8 @@ From here, you can:
     View submitted bugs in the table
     Submit a new bug by clicking the "Submit A Bug" button in top left corner of the stage
     Refresh the submitted bug table with the "Refresh" button below the "Submit A Bug" button
-    Edit an existing bug by double-clicking on a bug in the table - Not yet implemented
-    Update the status of a bug by selecting it in the table and selecting the status from to combobox - Not yet implemented
+    Edit an existing bug by double-clicking on a bug in the table
+    Update the status of a bug by selecting it in the table and selecting the status from to combobox
 
 ## Contributing
 

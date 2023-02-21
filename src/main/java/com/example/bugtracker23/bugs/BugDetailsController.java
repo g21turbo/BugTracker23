@@ -13,7 +13,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.*;
-import java.time.LocalDateTime;
 
 public class BugDetailsController {
 
@@ -28,6 +27,12 @@ public class BugDetailsController {
 
     @FXML
     private TableColumn<Comments, String> contentColumn;
+
+    @FXML
+    private ChoiceBox<String> statusChoiceBox;
+
+    @FXML
+    private Button updateBugButton;
 
     @FXML
     public Button createNewCommentButton;
@@ -58,13 +63,52 @@ public class BugDetailsController {
 
     public void initialize() {
 
+        // Set up the status choice box
+        ObservableList<String> statusOptions = FXCollections.observableArrayList(
+                "Open", "In Progress", "Closed"
+        );
+        statusChoiceBox.setItems(statusOptions);
+
+        updateBugButton.setOnAction(event -> {
+            // Get the updated bug information
+            String title = titleField.getText();
+            String description = descriptionArea.getText();
+            String status = statusChoiceBox.getValue();
+
+            // Update the bug in the database
+            String updateBugSql = "UPDATE buginfo SET title = ?, description = ?, status = ? WHERE number = ?";
+            try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/userlogin", "root", "root");
+                 PreparedStatement pstmt = conn.prepareStatement(updateBugSql)) {
+                pstmt.setString(1, title);
+                pstmt.setString(2, description);
+                pstmt.setString(3, status);
+                pstmt.setInt(4, bug.getNumber());
+                int affectedRows = pstmt.executeUpdate();
+                if (affectedRows > 0) {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Bug Updated");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Bug updated successfully.");
+                    Stage stage = (Stage) statusChoiceBox.getScene().getWindow();
+                    alert.showAndWait();
+                    stage.close();
+                }
+            } catch (SQLException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Failed to update nug.");
+                alert.showAndWait();
+            }
+        });
+
         if (bug != null) {
             numberField.setText(String.valueOf(bug.getNumber()));
             titleField.setText(bug.getTitle());
             descriptionArea.setText(bug.getDescription());
             createdField.setText(bug.getCreated().toString());
             updatedField.setText(bug.getUpdated().toString());
-            statusBox.setValue(bug.getStatus());
+            statusChoiceBox.setValue(bug.getStatus());
 
             // Retrieve comments for the current bug from the database and add them to the comments list
             ObservableList<Comments> comments = FXCollections.observableArrayList();
@@ -106,5 +150,4 @@ public class BugDetailsController {
             }
         });
     }
-
 }
