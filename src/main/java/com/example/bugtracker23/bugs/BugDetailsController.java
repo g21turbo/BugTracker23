@@ -56,6 +56,9 @@ public class BugDetailsController {
     @FXML
     private ChoiceBox<String> statusBox;
 
+    @FXML
+    private Button refreshCommentButton;
+
     private Bug bug;
 
     public void setBug(Bug bug) {
@@ -150,5 +153,40 @@ public class BugDetailsController {
                 e.printStackTrace();
             }
         });
+
+        refreshCommentButton.setOnAction(event -> {
+            try {
+                // Connect to the database
+                try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/userlogin", "root", "root")) {
+                    // Create a new observable list to store the updated data
+                    ObservableList<CommentForBugs> refreshedData = FXCollections.observableArrayList();
+
+                    // Retrieve the updated data from the database
+                    String selectCommentsSql = "SELECT c.created, c.author, c.content FROM userlogin.comments c WHERE c.bugNumber = ?";
+                    try (PreparedStatement statement = connection.prepareStatement(selectCommentsSql)) {
+                        statement.setInt(1, bug.getNumber());
+                        ResultSet rs = statement.executeQuery();
+                        while (rs.next()) {
+                            Timestamp created = Timestamp.valueOf(rs.getTimestamp("created").toLocalDateTime());
+                            String author = rs.getString("author");
+                            String content = rs.getString("content");
+                            refreshedData.add(new CommentForBugs(created, author, content));
+                        }
+                    }
+                    // Update the table view with the refreshed data
+                    commentsTable.setItems(refreshedData);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        });
     }
 }
+
+
+
+
+
+
+
+
